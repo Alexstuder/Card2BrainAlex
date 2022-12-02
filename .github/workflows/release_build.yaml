@@ -1,4 +1,4 @@
-name: Release Branch :Release Card2Brain
+name: Release Branch :Release Card2Brain and Deploy on Server
 
 on:
   push:
