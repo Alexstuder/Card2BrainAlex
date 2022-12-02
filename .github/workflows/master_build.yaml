@@ -3,7 +3,7 @@ name: MasterBranch :Build Card2Brain
 on:
   push:
     branches:
-      - master
+      - main
 
 # Allows you to run the worker manually from the Actions tab
   workflow_dispatch:
