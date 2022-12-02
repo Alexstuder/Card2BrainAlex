@@ -1,0 +1,41 @@
+name: MasterBranch :Build Card2Brain
+
+on:
+  push:
+    branches:
+      - main
+
+  # Allows you to run the worker manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 17
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        env:
+          HOST: 167.86.76.193
+          USERNAME: ${{ secrets.DEPLOY_USER}}
+          KEY: ${{ secrets.DEPLOY_USER_PWD}}
+        with:
+          source : "./target/card2brain-0.0.7-SNAPSHOT.jar"
+          target: "/home/card2brain/"
+
+
+      - name: Deploy Release to Server
+        run: ssh  /home/runner/work/Card2BrainAlex/Card2BrainAlex/target/card2brain-0.0.7-SNAPSHOT.jar
+
+      - name: deployment
+        run: curl --upload-file /home/runner/work/climatedataanalyser/climatedataanalyser/climatedataanalyser-api/target/ClimateAnalyser.war "http://${{secrets.DEPLOY_USER}}@studer.tk:8080//manager/text/deploy?path=/ClimateAnalyser"
