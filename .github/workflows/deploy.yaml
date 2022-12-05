@@ -3,7 +3,7 @@ name: MasterBranch :Test Deploy and Start
 on:
   push:
     branches:
-      - main
+      - paused
 
   # Allows you to run the worker manually from the Actions tab
   workflow_dispatch:
@@ -33,10 +33,12 @@ jobs:
       - name: Deploy with rsync
         run: rsync -avz ./target/card2brain-*.jar ${{ secrets.DEPLOY_USER }}@167.86.76.193:/home/card2brain
       - name: ls -a via ssh
-        uses: garygrossgarten/github-action-ssh@release
+        uses: invi5H/ssh-action@v1
         with:
+          NAME: card2brain
+          SSH_HOST: ${{ secrets.HOST }}
+          SSH_PORT: ${{ secrets.PORT }}
+          SSH_USER: ${{ secrets.USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           command: ls -a
-          host: ${{ secrets.HOST }}
-          username: card2brain
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
