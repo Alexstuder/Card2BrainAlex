@@ -30,4 +30,4 @@ jobs:
           SSH_HOST: ${{ secrets.HOST }}
 
       - name: Stop the server
-        run: ssh staging 'java -jar card2brain-*.jar'
+        run: ssh staging 'java -jar card2brain-*.jar &'
