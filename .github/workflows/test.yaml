@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - paused
   workflow_dispatch:
 jobs:
   # test:
@@ -29,5 +29,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.HOST }}
 
-      - name: Stop the server
+      - name: remove old jar
+        run: ssh staging 'rm card2brain-*.jar &'
+      - name: Start card2brain
         run: ssh staging 'java -jar card2brain-*.jar &'

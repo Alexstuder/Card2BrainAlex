@@ -3,7 +3,7 @@ name: MasterBranch :Test Deploy and Start
 on:
   push:
     branches:
-      - paused
+      - main
 
   # Allows you to run the worker manually from the Actions tab
   workflow_dispatch:
@@ -20,7 +20,25 @@ jobs:
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 17
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: card2brain
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.HOST }}
 
+      - name: remove old jar
+        run: ssh staging 'rm card2brain-*.jar &'
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Install SSH Key
@@ -32,13 +50,7 @@ jobs:
         run: ssh-keyscan -H 167.86.76.193 >> ~/.ssh/known_hosts
       - name: Deploy with rsync
         run: rsync -avz ./target/card2brain-*.jar ${{ secrets.DEPLOY_USER }}@167.86.76.193:/home/card2brain
-      - name: ls -a via ssh
-        uses: invi5H/ssh-action@v1
-        with:
-          NAME: card2brain
-          SSH_HOST: ${{ secrets.HOST }}
-          SSH_PORT: ${{ secrets.PORT }}
-          SSH_USER: ${{ secrets.USER }}
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          command: ls -a
+      - name: Start card2brain
+        run: ssh staging 'java -jar card2brain-*.jar &'
+
 
