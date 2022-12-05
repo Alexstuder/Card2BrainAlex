@@ -3,7 +3,7 @@ name: MasterBranch :Build Card2Brain
 on:
   push:
     branches:
-      - test # paused
+      - main
 
   # Allows you to run the worker manually from the Actions tab
   workflow_dispatch:
@@ -32,5 +32,11 @@ jobs:
         run: ssh-keyscan -H 167.86.76.193 >> ~/.ssh/known_hosts
       - name: Deploy with rsync
         run: rsync -avz ./target/card2brain-*.jar ${{ secrets.DEPLOY_USER }}@167.86.76.193:/home/card2brain
-
+      - name: ls -a via ssh
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -a
+          host: ${{ secrets.HOST }}
+          username: card2brain
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 

@@ -3,7 +3,7 @@ name: Release Branch :Release Card2Brain and Deploy on Server
 on:
   push:
     branches:
-      - release
+      - paused
 
   # Allows you to run the worker manually from the Actions tab
   workflow_dispatch:
