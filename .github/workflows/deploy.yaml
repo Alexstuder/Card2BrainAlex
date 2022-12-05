@@ -1,4 +1,4 @@
-name: MasterBranch :Build Card2Brain
+name: MasterBranch :Test Deploy and Start
 
 on:
   push:
