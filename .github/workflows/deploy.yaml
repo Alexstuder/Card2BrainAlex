@@ -51,12 +51,9 @@ jobs:
       - name: Deploy with rsync
         run: rsync -avz ./target/card2brain-*.jar ${{ secrets.DEPLOY_USER }}@167.86.76.193:/home/card2brain
       - name: stop the app
-        run: ssh staging "nohup kill -9 `lsof -t -i:9000` &"
-      - name: show status application is shutdown
-        run: ssh staging 'cat nohup.out'
+        run: ssh staging "nohup kill -9 `lsof -t -i:9000` ;cat nohup.out"
       - name: Start card2brain
         run: ssh staging "nohup java -jar card2brain-*.jar ;cat nohup.out"
-      - name: show status application is shutdown
-        run: ssh staging 'cat nohup.out'
+
 
 
