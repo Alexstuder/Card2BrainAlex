@@ -51,7 +51,7 @@ jobs:
       - name: Deploy with rsync
         run: rsync -avz ./target/card2brain-*.jar ${{ secrets.DEPLOY_USER }}@167.86.76.193:/home/card2brain
       - name: stop the app
-        run: ssh staging 'sudo kill -9 `sudo lsof -t -i:9001`'
+        run: ssh staging 'kill -9 `lsof -t -i:9000`'
       - name: Start card2brain
         run: ssh staging 'java -jar card2brain-*.jar &'
 
