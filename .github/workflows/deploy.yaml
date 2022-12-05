@@ -55,7 +55,7 @@ jobs:
       - name: show status application is shutdown
         run: ssh staging 'cat nohup.out'
       - name: Start card2brain
-        run: ssh staging "nohup java -jar card2brain-*.jar &"
+        run: ssh staging "nohup java -jar card2brain-*.jar ;cat nohup.out"
       - name: show status application is shutdown
         run: ssh staging 'cat nohup.out'
 
