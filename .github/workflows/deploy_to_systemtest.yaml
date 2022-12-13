@@ -46,7 +46,7 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H 94.16.122.234 >> ~/.ssh/known_hosts
       - name: Deploy with rsync
-        run: rsync -avz ./target/card2brain-*.jar card2brain@94.16.122.234:/home/card2brain
+        run: rsync -avz ./target/card2brain-*.jar ${{ secrets.CARD2BRAIN }}@94.16.122.234:/home/card2brain
 
 
 
