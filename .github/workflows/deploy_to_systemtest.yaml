@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 17
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
       - name: Build the Docker Image
         run: docker build . --file Dockerfile --tag card2brain:latest
       - name: Install SSH Key
