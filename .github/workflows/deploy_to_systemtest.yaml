@@ -45,6 +45,7 @@ jobs:
         run: ssh-keyscan -H 94.16.122.234 >> ~/.ssh/known_hosts
       - uses: GuillaumeFalourd/setup-rsync@v1.1
       - run: rsync --version
+      - run: rsync -help
       - name: Deploy with rsync
         run: rsync -avz ./target/card2brain-*.jar ${{ secrets.CARD2BRAIN }}@94.16.122.234:/home/card2brain
 
