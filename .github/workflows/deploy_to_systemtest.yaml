@@ -9,7 +9,6 @@ on:
   workflow_dispatch:
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
@@ -46,8 +45,9 @@ jobs:
       - uses: GuillaumeFalourd/setup-rsync@v1.1
       - run: rsync --version
       - run: rsync -help
+      - run: ls -lrt
       - name: Deploy with rsync
-      - run: rsync -avz ./target/card2brain-*.jar ${{ secrets.CARD2BRAIN }}@94.16.122.234:/home/card2brain
+        run: rsync -avz ./target/card2brain-*.jar ${{ secrets.CARD2BRAIN }}@94.16.122.234:/home/card2brain
 
 
 
