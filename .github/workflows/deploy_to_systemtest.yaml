@@ -1,0 +1,36 @@
+name: MasterBranch :Build Card2Brain
+
+on:
+  push:
+    branches:
+      - main
+
+# Allows you to run the worker manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 17
+      - name: Build the Docker Image
+        run: docker build . --file Dockerfile --tag card2brain:latest
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_CARD2BRAIN_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H 94.16.122.234 >> ~/.ssh/known_hosts
+      - name: Deploy with rsync
+        run: rsync -avz ./target/card2brain-*.jar card2brain@94.16.122.234:/home/card2brain
+
+
+
