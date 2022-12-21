@@ -2,10 +2,14 @@ package ch.zhaw.card2brain.repository;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataAccess {
+
+    @Autowired
+    Environment environment;
 
     @Getter
     private final UserRepository userRepository;

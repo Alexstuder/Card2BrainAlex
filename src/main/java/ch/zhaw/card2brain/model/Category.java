@@ -2,27 +2,23 @@ package ch.zhaw.card2brain.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity(name = "Category")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Category extends BaseEntity {
 
     @Getter
     @Setter
+    @NonNull
     private String categoryName;
 
     @Getter
     @Setter
     @ManyToOne
+    @NonNull
     private User owner;
 
-    public Category(String categoryName, User owner) {
-        this.categoryName = categoryName;
-        this.owner = owner;
-    }
 
-    public Category() {
-
-    }
 }

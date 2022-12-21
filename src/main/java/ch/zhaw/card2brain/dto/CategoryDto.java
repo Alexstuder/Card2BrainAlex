@@ -8,35 +8,17 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDto {
+public class CategoryDto extends UserDto {
     @Getter
     @Setter
-    User user;
-    @Getter
-    @Setter
-    List<Category> categories;
+    List<Category> categories = new ArrayList<>();
 
     @Getter
     @Setter
-    String message;
-
-    public CategoryDto(User user, Category category) {
-        this.user = user;
-        this.categories = new ArrayList<>();
-        this.categories.add(category);
-        this.message = "";
-    }
+    String message = "";
 
     public CategoryDto(User user) {
-        this.user = user;
-        this.categories = new ArrayList<>();
-        this.message = "";
-    }
-
-    public CategoryDto() {
-        this.user = new User();
-        this.categories = new ArrayList<>();
-        this.message = "";
+        super(user);
     }
 
 }

@@ -14,8 +14,12 @@ public class HealthCheck {
     @Value("${info.app.buildtime}")
     String buildTime;
 
-    @GetMapping("/healthCheck")
+    @GetMapping(value = "/")
     public String index() {
+        return healthCheck();
+    }
+    @GetMapping("/healthCheck")
+    public String healthCheck() {
         return "<!DOCTYPE html><html><head></head><titel></titel><body><h1>Card2Brain is running!</h1> <p>App.Version :" + appVersion + "</p> <p> BuildTime :" + buildTime + "</p></body></html>";
     }
 }

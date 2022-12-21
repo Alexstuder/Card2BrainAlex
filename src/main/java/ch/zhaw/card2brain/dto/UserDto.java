@@ -1,20 +1,24 @@
 package ch.zhaw.card2brain.dto;
 
 import ch.zhaw.card2brain.model.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserDto {
     @Getter
     @Setter
+    @NonNull
     private String userName;
 
     @Getter
     @Setter
+    @NonNull
     private String firstName;
 
     @Getter
     @Setter
+    @NonNull
     private String mailAddress;
 
     @Getter
@@ -22,9 +26,6 @@ public class UserDto {
     private String message;
 
     public UserDto(User user) {
-        this.setUserName(user.getUserName());
-        this.setFirstName(user.getFirstName());
-        this.setMailAddress(user.getMailAddress());
-
+        this(user.getUserName(), user.getFirstName(), user.getMailAddress());
     }
 }

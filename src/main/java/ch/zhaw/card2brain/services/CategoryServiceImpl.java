@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto addCategoryToUser(User user, Category category) {
-        CategoryDto categoryDto = new CategoryDto(user, category);
+        CategoryDto categoryDto = new CategoryDto(user);
 
         if (userService.userExists(user)) {
             if (categoryExists(user, category)) {
@@ -39,9 +39,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto getAllCategoriesToUser(User user) {
-        CategoryDto categoryDto = new CategoryDto();
+        CategoryDto categoryDto = new CategoryDto(user);
         if (userService.userExists(user)) {
-            categoryDto.setUser(user);
             categoryDto.setCategories(dataAccess.getCategoryRepository().findCategoriesByOwner(user));
             categoryDto.setMessage(EMPTY);
         } else {
