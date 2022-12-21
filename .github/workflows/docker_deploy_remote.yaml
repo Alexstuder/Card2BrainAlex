@@ -10,6 +10,9 @@ jobs:
     name: Deploy to remote Host
     runs-on: ubuntu-latest
     steps:
+      - name: Configure SSH
+        run: |
+            ls -lrt
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.0
         with:
