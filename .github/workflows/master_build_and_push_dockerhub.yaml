@@ -22,4 +22,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: alexstuder/card2brainMaster:latest
+          tags: alexstuder/card2brainmaster:latest
