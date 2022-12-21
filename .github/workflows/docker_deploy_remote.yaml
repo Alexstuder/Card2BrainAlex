@@ -16,6 +16,7 @@ jobs:
           remote_docker_host: card2brain@94.16.122.234
           ssh_private_key: ${{ secrets.SSH_CARD2BRAIN_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_CARD2BRAIN_PUBLIC_KEY }}
+          copy_stack_file: true
           stack_file_name: docker-compose.yml
           docker_login_password: ${{ secrets.DOCKERHUB_PASSWORD }}
           docker_login_user: ${{ secrets.DOCKERHUB_USERNAME }}
