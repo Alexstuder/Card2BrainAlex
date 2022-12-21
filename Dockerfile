@@ -1,5 +1,5 @@
 #Maven Build
-FROM maven:3.8.3-openjdk-11-slim AS builder
+FROM maven:3.8.3-openjdk-17-alpine AS builder
 COPY pom.xml /app/
 COPY src /app/src
 RUN --mount=type=cache,target=/root/.m2 mvn -f /app/pom.xml clean package -DskipTests
