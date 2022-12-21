@@ -13,7 +13,7 @@ jobs:
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.0
         with:
-          remote_docker_host: alex@94.16.122.234
+          remote_docker_host: card2brain@94.16.122.234
           ssh_private_key: ${{ secrets.SSH_CARD2BRAIN_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_CARD2BRAIN_PUBLIC_KEY }}
           stack_file_name: docker-compose.yml
