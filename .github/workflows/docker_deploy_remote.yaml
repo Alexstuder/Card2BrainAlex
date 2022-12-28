@@ -2,7 +2,7 @@ name: Docker deploy to remote
 
 on:
   push:
-    branches: [ main ]
+    branches: [ paused ]
   workflow_dispatch:
 
 jobs:
